@@ -2,16 +2,19 @@ const express = require('express');
 
 // create an instance of express
 const app = express();
+const ejsLayouts = require('express-ejs-layouts');
+require('dotenv').config(); // allows us to access env vars
 
-// HOME route
-// GET REQUEST => the client has sent a (R)ead request for files or data
-// req = request object, res = response object
+app.set('view engine', 'ejs');
+app.use(ejsLayouts);
+
 app.get('/', (req, res) => {
 	// send 'Hello, world' back to the client that made the request
-	res.send('Hello, World!');
+	res.render('home.ejs');
 });
 
-// assign a port for our server to listen for incoming requests
-app.listen(8000, () => {
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, () => {
 	console.log("You're listening to the smooth sounds of port 8000");
 });
